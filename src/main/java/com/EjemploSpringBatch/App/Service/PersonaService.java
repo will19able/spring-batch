@@ -33,7 +33,7 @@ public class PersonaService {
 
     public void subirArchivo(MultipartFile archivo) throws IOException {
         try {
-            String path = "/Users/ana-des-qui-bnt/Documents/JavaIntellijWordSpace/tmpuploads/";
+            String path = "C:\\Users\\William Polo\\Documents\\JavaIntellijWordspace\\tmpuploads";
             File archivoAImportar = new File(archivo.getOriginalFilename());
             OutputStream outputStream = new FileOutputStream(path+archivoAImportar);
             IOUtils.copy(archivo.getInputStream(), outputStream);
