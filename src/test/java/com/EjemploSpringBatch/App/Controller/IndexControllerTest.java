@@ -1,33 +1,36 @@
 package com.EjemploSpringBatch.App.Controller;
 
-import org.junit.Before;
+import com.EjemploSpringBatch.App.Service.PersonaService;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.Mockito;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.MockMvc;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class IndexControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+    @Mock
+    private PersonaService personaService;
 
+    @InjectMocks
+    private IndexController indexController;
 
-    @Before
-    public void setUp() throws Exception
-    {
-
-    }
 
     @Test
     void procesarArchivo() throws Exception {
+        MockMultipartFile archive = new MockMultipartFile("file", "sample-data.csv", "text/plain", "some CSV data".getBytes());
+        Mockito.when(personaService.subirArchivo(archive)).thenReturn("ok");
 
-        MockMultipartFile firstFile = new MockMultipartFile("file", "sample-data.csv", "text/plain", "some CSV data".getBytes());
-       /* mockMvc.perform(MockMvcRequestBuilders.multipart("/batch/procesarArchivo")
+        String respuesta = indexController.procesarArchivo(archive);
+
+        assertNotNull(respuesta);
+        assertEquals(respuesta, "ok");
+
+        /*MockMultipartFile firstFile = new MockMultipartFile("file", "sample-data.csv", "text/plain", "some CSV data".getBytes());
+        mockMvc.perform(MockMvcRequestBuilders.multipart("/batch/procesarArchivo")
                 .file(firstFile))
                 .andExpect(status().is(200));*/
     }

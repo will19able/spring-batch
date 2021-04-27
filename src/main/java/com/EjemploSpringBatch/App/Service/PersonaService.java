@@ -31,7 +31,7 @@ public class PersonaService {
     @Autowired
     private Job importUserJob;
 
-    public void subirArchivo(MultipartFile archivo) throws IOException {
+    public String subirArchivo(MultipartFile archivo) throws IOException {
         try {
             String path = "/Users/ana-des-qui-bnt/Documents/JavaIntellijWordSpace/tmpuploads/";
             File archivoAImportar = new File(archivo.getOriginalFilename());
@@ -49,5 +49,6 @@ public class PersonaService {
             e.printStackTrace();
 
         }
+        return "ok";
     }
 }
